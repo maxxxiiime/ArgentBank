@@ -1,4 +1,5 @@
 import React from 'react';
+import "./featureitem.scss";
 
 export default function FeatureItem({title,image,description}){
   return (
