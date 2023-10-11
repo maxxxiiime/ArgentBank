@@ -10,6 +10,7 @@ export default function Form() {
   // stock les valeurs du mail et du mdp
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); 
 
   // fonction pour gérer le submit du form
   const handleSubmit = async (e) => {
@@ -29,23 +30,26 @@ export default function Form() {
       },
       body: JSON.stringify(formData),
     });
-
-        // Vérifie si la réponse HTTP est réussie (statut 200)
+        // si HTTP ok (statut 200)
         if (response.ok) {
           // réponse en JSON
           const responseData = await response.json();
-          console.log("Réponse de l'API :", responseData);
-          navigate("/user"); // Redirige vers la page user
+          console.log(responseData);
+
+            // recup et stock le token
+            const token = responseData.body.token;
+            localStorage.setItem("authToken", token);
+          navigate("/user");
         } else {
-          console.error("Erreur lors de la requête API :", response.statusText);
+          console.error("Erreur :", response.statusText);
+          setErrorMessage("email or password incorrect");
         }
       } catch (error) {
-        console.error("Erreur lors de la requête API :", error);
+        console.error("Erreur :", error);
+        setErrorMessage("an error has occurred");
       }
     };
   
-
-
   return (
     <div>
         <section className="sign-in-content">
@@ -74,7 +78,7 @@ export default function Form() {
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
           <button type="submit" className="sign-in-button">
             Sign In
           </button>

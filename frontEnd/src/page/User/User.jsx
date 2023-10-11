@@ -7,7 +7,7 @@ export default function User() {
         <h1>
           Welcome back
           <br />
-         ...
+          {/* {user.firstName + " " + user.lastName + " !"} */}
         </h1>
  </div>
 
