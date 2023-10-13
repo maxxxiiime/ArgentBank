@@ -60,7 +60,7 @@ export default function User() {
         <h1>
           Welcome back
           <br />
-          {userProfile.firstName} {userProfile.lastName}!
+          {userProfile ? `${userProfile.firstName} ${userProfile.lastName}` : "Loading..."}
         </h1>
  </div>
 
