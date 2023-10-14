@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Account from '../../components/account/Account';
 import "./user.scss";
 
 export default function User() {
@@ -64,18 +65,23 @@ export default function User() {
         </h1>
  </div>
 
-        <button className="edit-button" >Edit Name</button>
-        <section className="account">
-            <div className="account-content-wrapper">
-            <h3 className=" account-title">TEst</h3>
-            <p className="account-amount">Testeee</p>
-            <p className="account-amount-description">decription test</p>
-            </div>
-        <div className="account-content-wrapper cta">
-           <button className="transaction-button">View transactions</button>
-        </div>
-        </section>
+  <button className="edit-button" >Edit Name</button>
    
+  <Account account="Argent Bank Checking (x8349)"
+  amount="$2,082.79"
+  description="Available Balance"
+  transaction="View transactions"
+   />
+  <Account account="Argent Bank Checking (x6712)"
+  amount="$10,928.42"
+  description="Available Balance"
+  transaction="View transactions"
+   />
+  <Account account="Argent Bank Checking (x8349)"
+  amount="$184.30"
+  description="Current Balance"
+  transaction="View transactions"
+   />
     </main>
   )
 }

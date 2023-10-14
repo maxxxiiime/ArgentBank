@@ -17,6 +17,7 @@ const initialState = {
         setSignOut(state) {
             state.token = null;
             state.isAuthenticated = false;
+            localStorage.removeItem('authToken');
         },
     },
 

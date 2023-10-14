@@ -2,14 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// import { useDispatch } from "react-redux";
-// import { setSignIn } from "../../redux/reducer/authSlice";
+import { useDispatch } from "react-redux";
+import { setSignIn } from "../../redux/reducer/authSlice";
 
 import "./form.scss";
 
 
 export default function Form() {
-  // const dispatch = useDispatch;
+  const dispatch = useDispatch ();
   const navigate = useNavigate(); 
 
   // stock les valeurs du mail et du mdp
@@ -44,7 +44,7 @@ export default function Form() {
             // recup et stock le token
             const token = responseData.body.token;
             localStorage.setItem("authToken", token);
-            // dispatch(setSignIn({ token }));
+            dispatch(setSignIn({ token }));
           navigate("/user");
         } else {
           console.error("Erreur :", response.statusText);
