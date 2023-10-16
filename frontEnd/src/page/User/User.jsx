@@ -52,8 +52,6 @@ export default function User() {
     };
 
 
-  
-
 
   return (
     <main className="bg-dark"> 

@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom"
 import logo from "../../assets/img/argentBankLogo.webp"
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,17 +14,25 @@ export default function Header() {
     dispatch(setSignOut());
   };
 
+
+
+  useEffect(() => {
+    // deconnect si token est nul
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      dispatch(setSignOut());
+    }
+  }, [dispatch]);
+
   return (
     <header>
         <nav className="main-nav">
-        <Link to="./" className="main-nav-logo">
-                <img
-                className="main-nav-logo-image"
-                src={logo}
-                alt="Argent Bank Logo" />
+        <Link to="./" onClick={handleSignOut} className="main-nav-logo">
+                <img className="main-nav-logo-image"
+                src={logo} alt="Argent Bank Logo" />
            <h1 className="sr-only">Argent Bank</h1>
         </Link>
-  {isAuthenticated ? (
+    {isAuthenticated ? (
           <Link to="./signin" onClick={handleSignOut} className="main-nav-item">
             <i className="fa fa-user-circle"></i>
             Sign Out
