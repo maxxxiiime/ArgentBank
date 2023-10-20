@@ -1,8 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
-
-
 const checkToken = () => {
   return localStorage.getItem("token") || null;
 };
@@ -17,11 +14,6 @@ const initialState = {
     name: "auth",
     initialState,
     reducers:{
-
-    // userProfile(state){
-    // state.userFirstName = "";
-    // state.lastName = "";
-    // },
 
         setSignIn(state, action) {
             state.token = action.payload.token;
@@ -39,7 +31,7 @@ const initialState = {
 
         setSignOut(state) {
             state.token = null;
-            state.token = "";
+            // state.token = "";
             state.isAuthenticated = false;
             localStorage.removeItem('authToken');
         },
