@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducer/userSlice";
 import Account from '../../components/account/Account';
 import "./user.scss";
 
-export default function User() {
-  const [userProfile, setUserProfile] = useState(null);
 
+
+
+export default function User() {
+  const dispatch = useDispatch();
+  const userProfile = useSelector((state) => state.user); 
+  
 
   useEffect(() => {
     // authToken = token d'authentfi recup dans localStorage
@@ -14,7 +20,7 @@ export default function User() {
     if (authToken) {
       fetchDataProfile(authToken);
     }
-  }, []);
+  },  );
 
   // fonction pour recupérer les donné des profile
  async function fetchDataProfile(authToken) {
@@ -39,27 +45,26 @@ export default function User() {
         if (response.ok) {
           // réponse en JSON
           const responseData = await response.json();
+          dispatch(setUser(responseData));
           console.log(responseData);
-          setUserProfile(responseData.body);
+          // setUser(responseData.body);
           console.log(responseData.body);
         } else {
           console.error("Erreur :", response.statusText);
-      
         }
       } catch (error) {
         console.error("Erreur :", error);  
       }
     };
-
-
-
+console.log(userProfile);
   return (
     <main className="bg-dark"> 
     <div className="header">
         <h1>
           Welcome back
           <br />
-          {userProfile ? `${userProfile.firstName} ${userProfile.lastName}` : "Loading..."}
+          {userProfile.firstName + " " + userProfile.lastName + " !"}
+          
         </h1>
  </div>
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import logo from "../../assets/img/argentBankLogo.webp"
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,7 +14,7 @@ export default function Header() {
     dispatch(setSignOut());
   };
 
-
+  const [userProfile, setUserProfile] = useState(null);
 
   useEffect(() => {
     // deconnect si token est nul
@@ -35,6 +35,9 @@ export default function Header() {
     {isAuthenticated ? (
           <Link to="./signin" onClick={handleSignOut} className="main-nav-item">
             <i className="fa fa-user-circle"></i>
+            {userProfile ? `${userProfile.firstName}` : "koi?"}
+            <i className="fa fa-sign-out"></i>
+            
             Sign Out
           </Link>
         ) : (

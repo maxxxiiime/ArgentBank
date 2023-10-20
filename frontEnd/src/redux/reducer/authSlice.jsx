@@ -1,27 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const isFirstLoad = localStorage.getItem('isFirstLoad');
 
-if (!isFirstLoad) {
-  // Supprime le token au 1er chargement
-  localStorage.removeItem('authToken');
 
-  // le first load a bien eu lieu = true
-  localStorage.setItem('isFirstLoad', 'true');
-}
+
+const checkToken = () => {
+  return localStorage.getItem("token") || null;
+};
 
 const initialState = {
-    token: null,
+    token: checkToken(),
     isAuthenticated: false,
+    
   };
 
   const authSlice = createSlice ({
     name: "auth",
     initialState,
     reducers:{
+
+    // userProfile(state){
+    // state.userFirstName = "";
+    // state.lastName = "";
+    // },
+
         setSignIn(state, action) {
             state.token = action.payload.token;
             state.isAuthenticated = true;
+
         },
 
         // setSignOut(state) {
@@ -34,7 +39,7 @@ const initialState = {
 
         setSignOut(state) {
             state.token = null;
-            // state.token = "";
+            state.token = "";
             state.isAuthenticated = false;
             localStorage.removeItem('authToken');
         },
