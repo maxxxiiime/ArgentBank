@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/reducer/userSlice";
 import Account from '../../components/account/Account';
+import EditName from "../../components/Editname/EditName";
 import "./user.scss";
 
 
@@ -10,7 +11,7 @@ import "./user.scss";
 export default function User() {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.user); 
-  
+  // const [toggleEditName, setToggleEditName] = useState(false);
 
   useEffect(() => {
     // authToken = token d'authentfi recup dans localStorage
@@ -57,6 +58,11 @@ export default function User() {
       }
     };
 console.log(userProfile);
+
+
+//  const displayEditName = () => {
+//     setToggleEditName(!toggleEditName);
+//   };
   return (
     <main className="bg-dark"> 
     <div className="header">
@@ -64,12 +70,16 @@ console.log(userProfile);
           Welcome back
           <br />
           {userProfile.firstName + " " + userProfile.lastName + " !"}
-          
         </h1>
- </div>
 
-  <button className="edit-button" >Edit Name</button>
-   
+  {/* <button onClick={displayEditName} className="edit-button">
+  Edit Name
+            {!displayEditName ? "Edit name" : "Close"}
+          </button> */}
+       
+            <EditName  />
+          
+   </div>
   <Account account="Argent Bank Checking (x8349)"
   amount="$2,082.79"
   description="Available Balance"
