@@ -17,8 +17,11 @@ reducers: {
     state.userName = action.payload.body.userName;
     state.email = action.payload.body.email;
     },
+    setNewUserName: (state, action) => {
+        state.userName = action.payload.response.userName;
+      },
 }
 })
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setNewUserName } = userSlice.actions;
 export default userSlice.reducer;

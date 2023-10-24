@@ -6,8 +6,7 @@ const checkToken = () => {
 
 const initialState = {
     token: checkToken(),
-    isAuthenticated: false,
-    
+    isAuthenticated: false,    
   };
 
   const authSlice = createSlice ({
@@ -18,16 +17,7 @@ const initialState = {
         setSignIn(state, action) {
             state.token = action.payload.token;
             state.isAuthenticated = true;
-
         },
-
-        // setSignOut(state) {
-        //     return {
-        //       ...state,
-        //       token: null,
-        //       isAuthenticated: false,
-        //     };
-        // },
 
         setSignOut(state) {
             state.token = null;
