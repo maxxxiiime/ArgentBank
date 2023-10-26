@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setNewUserName } from "../../redux/reducer/userSlice"
 import { setSignIn } from "../../redux/reducer/authSlice"
 import "./editname.scss"
-
+import { updateToken } from '../../redux/reducer/authSlice';
 export default function EditName() {
 
 const dispatch = useDispatch();
@@ -13,47 +13,55 @@ const [toggleEditName, setToggleEditName] = useState(false);
 const token = useSelector((state) => state.auth.token);
 const [newUserName, setNewUserName] = useState("");
 
-
 const displayEditName = () => {
     setToggleEditName(!toggleEditName);
   };
 
 //   fonction pour envoyer un nouveau userName
-  async function fetchNewUserName(authToken) {
+async function fetchNewUserName() {
 
-    try {
-      const response = await fetch("http://localhost:3001/api/v1/user/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
-        body: JSON.stringify({
-            userName: newUserName,
-          }),
-      });
-          // si HTTP ok (statut 200)
-          if (response.ok) {
-            // réponse en JSON
-            const responseData = await response.json();
-            dispatch(setNewUserName(responseData));
-            console.log(responseData);
-            // setUser(responseData.body);
-            console.log(responseData.body);
-            if (responseData.token) {
-                dispatch(setSignIn({ token: responseData.token }));
-              }
-          } else {
-            console.error("Erreur :", response.statusText);
-          }
-        } catch (error) {
-          console.error("Erreur :", error);  
-        }
-      };
+  if (newUserName.trim() === "") {
+    // Gérer le cas où newUserName est une chaîne vide
+    console.error("Le nom d'utilisateur ne peut pas être vide");
+    return;
+  }
 
-  console.log(setNewUserName);
+  try {
+    const userNameString = String(newUserName);
+
+    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        userName: userNameString,
+      }),
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      dispatch(setNewUserName(responseData.body.userName));
+      console.log(responseData);
+      if (responseData.token) {
+        dispatch(updateToken({ token: responseData.token }));
+      }
+    } else {
+      console.error("Erreur :", response.statusText);
+      if (response.status === 400) {
+        const errorData = await response.json();
+        console.error("Erreur 400 - Bad Request:", errorData);
+      }
+    }
+  } catch (error) {
+    console.error("Erreur :", error);
+  }
+}
+
   console.log(newUserName);
-  return ( 
+  return (   
+   
     <div className="edit-user-info">
         <button onClick={displayEditName} className="edit-button">
   Edit Name
@@ -62,7 +70,10 @@ const displayEditName = () => {
           {toggleEditName && (
             <>
               <h2>Edit user info</h2>
-                <form onSubmit={ fetchNewUserName }>
+                <form onSubmit={(e) => {
+                    e.preventDefault(); // Empêche le rechargement de la page
+                    fetchNewUserName(token);
+                    }}>
                     <div className="input-wrapper">
                         <label htmlFor="userName">User name :</label>
                         <input type="text"
@@ -84,5 +95,6 @@ const displayEditName = () => {
             </>
 )}
     </div>
+ 
   )
 }

@@ -18,7 +18,8 @@ reducers: {
     state.email = action.payload.body.email;
     },
     setNewUserName: (state, action) => {
-        state.userName = action.payload.response.userName;
+        // state.userName = action.payload.response.userName;
+        state.userName = action.payload; 
       },
 }
 })

@@ -15,9 +15,7 @@ export default function Header() {
     dispatch(setSignOut());
   };
 
-
   useEffect(() => {
-    // deconnect si token est nul
     const token = localStorage.getItem("authToken");
     if (!token) {
       dispatch(setSignOut());
@@ -44,9 +42,7 @@ export default function Header() {
             Sign Out
           </Link>
           </div>
-        ) 
-        : 
-        (
+        ) : (
           <Link to="./signin" className="main-nav-item">
             <i className="fa fa-user-circle"></i>
             Sign In

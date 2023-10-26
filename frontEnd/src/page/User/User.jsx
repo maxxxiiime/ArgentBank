@@ -58,10 +58,10 @@ export default function User() {
 console.log(userProfile);
 
   return (
+    
     <main className="bg-dark"> 
   
-       
-       
+
         <div className="header">
           <h1>
             Welcome back

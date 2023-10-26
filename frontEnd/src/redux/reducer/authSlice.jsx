@@ -25,9 +25,12 @@ const initialState = {
             state.isAuthenticated = false;
             localStorage.removeItem('authToken');
         },
+        // pour mettre à jour le token
+        updateToken(state, action) {
+          state.token = action.payload.token;
+        },
     },
-
 });
 
-export const { setSignIn, setSignOut } = authSlice.actions;
+export const { setSignIn, setSignOut, updateToken } = authSlice.actions;
 export default authSlice.reducer;
