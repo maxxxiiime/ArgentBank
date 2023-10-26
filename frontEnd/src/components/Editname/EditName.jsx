@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setNewUserName } from "../../redux/reducer/userSlice"
+import { setNewUserName as NUN } from "../../redux/reducer/userSlice"
 import { setSignIn } from "../../redux/reducer/authSlice"
 import "./editname.scss"
 import { updateToken } from '../../redux/reducer/authSlice';
@@ -42,11 +42,11 @@ async function fetchNewUserName() {
 
     if (response.ok) {
       const responseData = await response.json();
-      dispatch(setNewUserName(responseData.body.userName));
+      dispatch(NUN(userNameString));
       console.log(responseData);
-      if (responseData.token) {
-        dispatch(updateToken({ token: responseData.token }));
-      }
+      // if (responseData.token) {
+      //   dispatch(updateToken({ token: responseData.token }));
+      // }
     } else {
       console.error("Erreur :", response.statusText);
       if (response.status === 400) {
