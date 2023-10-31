@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setNewUserName as NUN } from "../../redux/reducer/userSlice"
-import { setSignIn } from "../../redux/reducer/authSlice"
+import { setNewUserProfilName } from "../../redux/reducer/userSlice"
+// import { setSignIn } from "../../redux/reducer/authSlice"
 import "./editname.scss"
-import { updateToken } from '../../redux/reducer/authSlice';
+// import { updateToken } from '../../redux/reducer/authSlice';
 export default function EditName() {
 
 const dispatch = useDispatch();
@@ -11,7 +11,9 @@ const userProfile = useSelector((state) => state.user);
 console.log(userProfile);
 const [toggleEditName, setToggleEditName] = useState(false);
 const token = useSelector((state) => state.auth.token);
+
 const [newUserName, setNewUserName] = useState("");
+const [errorMessage, setErrorMessage] = useState(""); 
 
 const displayEditName = () => {
     setToggleEditName(!toggleEditName);
@@ -23,6 +25,7 @@ async function fetchNewUserName() {
   if (newUserName.trim() === "") {
     // Gérer le cas où newUserName est une chaîne vide
     console.error("Le nom d'utilisateur ne peut pas être vide");
+    setErrorMessage("Enter new username...");
     return;
   }
 
@@ -42,7 +45,7 @@ async function fetchNewUserName() {
 
     if (response.ok) {
       const responseData = await response.json();
-      dispatch(NUN(userNameString));
+      dispatch(setNewUserProfilName(userNameString));
       console.log(responseData);
       // if (responseData.token) {
       //   dispatch(updateToken({ token: responseData.token }));
@@ -64,8 +67,8 @@ async function fetchNewUserName() {
    
     <div className="edit-user-info">
         <button onClick={displayEditName} className="edit-button">
-  Edit Name
-            {!displayEditName ? "Edit name" : "Close"}
+
+            {!toggleEditName ? "Edit name" : "Close"}
           </button>
           {toggleEditName && (
             <>
@@ -80,10 +83,11 @@ async function fetchNewUserName() {
                             placeholder="Enter new username..."
                             onChange={(e) => setNewUserName(e.target.value)}
                         />
+                        
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="firstName">First name :</label>
-                        <input type="text" value={userProfile.firstName} />
+                        <input type="text" value={userProfile.firstName} readOnly />
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="lastName">Last name :</label>
@@ -91,10 +95,9 @@ async function fetchNewUserName() {
                     </div>
                     <button type="submit" className="edit-button">Save</button>
                     <button onClick={displayEditName} className="edit-button">cancel</button>
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                 </form>
             </>
 )}
     </div>
- 
-  )
-}
+  )}

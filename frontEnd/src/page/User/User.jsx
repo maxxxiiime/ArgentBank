@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/reducer/userSlice";
 import Account from '../../components/account/Account';
@@ -61,7 +61,6 @@ console.log(userProfile);
     
     <main className="bg-dark"> 
   
-
         <div className="header">
           <h1>
             Welcome back
