@@ -9,7 +9,6 @@ initialState: {
     userName: "",
     email: ""
 },
-
 reducers: {
        setUser:(state, action ) => {
     state.firstName = action.payload.body.firstName;
@@ -18,7 +17,6 @@ reducers: {
     state.email = action.payload.body.email;
     },
     setNewUserProfilName: (state, action) => {
-        // state.userName = action.payload.response.userName;
         state.userName = action.payload; 
       },
 }

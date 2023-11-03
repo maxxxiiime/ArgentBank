@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setNewUserProfilName } from "../../redux/reducer/userSlice"
 // import { setSignIn } from "../../redux/reducer/authSlice"
 import "./editname.scss"
-// import { updateToken } from '../../redux/reducer/authSlice';
+
 export default function EditName() {
 
 const dispatch = useDispatch();
@@ -47,9 +47,7 @@ async function fetchNewUserName() {
       const responseData = await response.json();
       dispatch(setNewUserProfilName(userNameString));
       console.log(responseData);
-      // if (responseData.token) {
-      //   dispatch(updateToken({ token: responseData.token }));
-      // }
+
     } else {
       console.error("Erreur :", response.statusText);
       if (response.status === 400) {
@@ -80,6 +78,7 @@ async function fetchNewUserName() {
                     <div className="input-wrapper">
                         <label htmlFor="userName">User name :</label>
                         <input type="text"
+                        id="userName"
                             placeholder="Enter new username..."
                             onChange={(e) => setNewUserName(e.target.value)}
                         />
@@ -87,11 +86,15 @@ async function fetchNewUserName() {
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="firstName">First name :</label>
-                        <input type="text" value={userProfile.firstName} readOnly />
+                        <input type="text"
+                        id="firstName"
+                         value={userProfile.firstName} readOnly />
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="lastName">Last name :</label>
-                        <input type="text" value={userProfile.lastName} readOnly />
+                        <input type="text" 
+                        id="lastName"
+                        value={userProfile.lastName} readOnly />
                     </div>
                     <button type="submit" className="edit-button">Save</button>
                     <button onClick={displayEditName} className="edit-button">cancel</button>

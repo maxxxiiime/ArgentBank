@@ -5,11 +5,9 @@ import Account from '../../components/account/Account';
 import EditName from "../../components/Editname/EditName";
 import "./user.scss";
 
-
 export default function User() {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.user); 
-
 
   useEffect(() => {
     // authToken = token d'authentfi recup dans localStorage
@@ -60,21 +58,15 @@ console.log(userProfile);
   return (
     
     <main className="bg-dark"> 
-  
         <div className="header">
           <h1>
             Welcome back
             <br />
             {userProfile.firstName + " " + userProfile.lastName + " !"}
           </h1>
-       <EditName />
-       
+       <EditName />  
         </div>
-       
-  {/* <button onClick={displayEditName} className="edit-button">
-  Edit Name
-            {!displayEditName ? "Edit name" : "Close"}
-          </button> */}
+
   <Account account="Argent Bank Checking (x8349)"
   amount="$2,082.79"
   description="Available Balance"

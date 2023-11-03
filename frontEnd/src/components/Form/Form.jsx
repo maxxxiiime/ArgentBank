@@ -3,9 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSignIn } from "../../redux/reducer/authSlice";
-
 import "./form.scss";
-
 
 export default function Form() {
   const dispatch = useDispatch ();
@@ -54,16 +52,14 @@ export default function Form() {
         setErrorMessage("an error has occurred");
       }
     };
-
     
-  
   return (
     <div>
         <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
 
-<form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
             <input type="text" 

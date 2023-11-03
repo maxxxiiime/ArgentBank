@@ -8,8 +8,6 @@ import "./home.scss";
 
 export default function Home() {
 
-
-
   return (
     <main>
         <Banner />
@@ -31,7 +29,6 @@ export default function Home() {
                     title="Security you can trust"
                     description="We use top of the line encryption to make sure your data and money is always safe." />
             </section>
-
     </main>
   )
 }
