@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNewUserProfilName } from "../../redux/reducer/userSlice"
-// import { setSignIn } from "../../redux/reducer/authSlice"
 import "./editname.scss"
 
 export default function EditName() {
@@ -24,14 +23,12 @@ async function fetchNewUserName() {
 
   if (newUserName.trim() === "") {
     // Gérer le cas où newUserName est une chaîne vide
-    console.error("Le nom d'utilisateur ne peut pas être vide");
     setErrorMessage("Enter new username...");
     return;
   }
 
   try {
     const userNameString = String(newUserName);
-
     const response = await fetch("http://localhost:3001/api/v1/user/profile", {
       method: "PUT",
       headers: {
@@ -62,7 +59,6 @@ async function fetchNewUserName() {
 
   console.log(newUserName);
   return (   
-   
     <div className="edit-user-info">
         <button onClick={displayEditName} className="edit-button">
 
@@ -72,7 +68,7 @@ async function fetchNewUserName() {
             <>
               <h2>Edit user info</h2>
                 <form onSubmit={(e) => {
-                    e.preventDefault(); // Empêche le rechargement de la page
+                    e.preventDefault(); 
                     fetchNewUserName(token);
                     }}>
                     <div className="input-wrapper">
@@ -81,8 +77,7 @@ async function fetchNewUserName() {
                         id="userName"
                             placeholder="Enter new username..."
                             onChange={(e) => setNewUserName(e.target.value)}
-                        />
-                        
+                        /> 
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="firstName">First name :</label>
@@ -101,6 +96,6 @@ async function fetchNewUserName() {
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
                 </form>
             </>
-)}
+          )}
     </div>
   )}

@@ -69,7 +69,7 @@ paths:
        # - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile fetch successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -94,7 +94,7 @@ paths:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile fetch successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -109,8 +109,8 @@ paths:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Retrieve transactions grouped by bank account
-      description: Retrieve the user's transactions grouped by bank account.
+      summary: Fetch all transactions
+      description: Fetch all user's transactions.
       parameters:
         - in: path
           name: accountID
@@ -121,7 +121,7 @@ paths:
         - application/json
       responses:
         '200':
-          description: Account's transactions retrieved successully
+          description: Account's transactions fetch successfully
           schema:
             $ref: '#/definitions/UserAccount'
         '400':
@@ -139,8 +139,8 @@ paths:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Retrieve transaction details
-      description: Retrieve details from a specific transaction.
+      summary: Fetch transaction details
+      description: Fetch details from a specific transaction.
       parameters:
         - in: path
           name: accountID
@@ -156,7 +156,7 @@ paths:
         - application/json
       responses:
         '200':
-          description: Transactions details retrieved successully
+          description: Transactions details fetch successfully
           schema:
             $ref: '#/definitions/Transaction'
         '400':
@@ -195,9 +195,9 @@ paths:
         - application/json
       responses:
         '200':
-          description: Transactions details updated successully
+          description: Transactions details updated successfully
           schema:
-            $ref: '#/definitions/TransactionUpdateAPIResponse'
+            $ref: '#/definitions/TransactionUpdateDetailAPIResponse'
 
         '400':
           description: Invalid fields
@@ -226,6 +226,7 @@ paths:
           description: unique ID of transaction
           required: true
           type: string
+        
       responses:
         '200':
           description: Deleted successfully.
@@ -330,9 +331,6 @@ definitions:
       amount:
         type: number
         description: Transaction amount
-      recipient:
-        type: string
-        description: Recipient of the transaction
       category:
         type: string
         description: Transaction category
@@ -342,6 +340,9 @@ definitions:
       balance:
         type: number
         description: Balance after transaction
+      receiver:
+        type: string
+        description: receiver of the transaction
   TransactionUpdate:
     type: object
     properties:
@@ -351,7 +352,7 @@ definitions:
       category:
         type: string
         description: Transaction category to update
-  TransactionUpdateAPIResponse:
+  TransactionUpdateDetailAPIResponse:
     type: object
     properties:
       status:
