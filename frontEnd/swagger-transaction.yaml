@@ -103,14 +103,14 @@ paths:
           description: Internal Server Error
           
           
-  /user/accounts/{accountID}/transactions:
+  /accounts/{accountID}/transactions/current:
     get:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Fetch all transactions
-      description: Fetch all user's transactions.
+      summary: Fetch current month transactions
+      description: Fetch current month transactions.
       parameters:
         - in: path
           name: accountID
@@ -123,7 +123,7 @@ paths:
         '200':
           description: Account's transactions fetch successfully
           schema:
-            $ref: '#/definitions/UserAccount'
+            $ref: '#/definitions/UserAccountList'
         '400':
           description: Invalid fields
         '401':
@@ -133,7 +133,7 @@ paths:
         '500':
           description: Internal server error
 
-  /user/accounts/{accountID}/transactions/{transactionID}:
+  /accounts/{accountID}/transactions/{transactionID}:
     get:
       security:
         - Bearer: []
@@ -208,22 +208,29 @@ paths:
         '500':
           description: Internal server error
 
+  /accounts/{accountID}/transactions/{transactionID}/note/{noteID}:
     delete:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: transaction API
-      description: API for delete a transaction
+      summary: Delete a note of a transaction
+      description: Delete a note from a specific transaction in my API.
+
       parameters:
         - in: path
           name: accountID
-          description: unique ID of account
+          description: Unique account ID
           required: true
-          type: string
+          type : string
         - in: path
           name: transactionID
-          description: unique ID of transaction
+          description: Unique transaction ID
+          required: true
+          type : string
+        - name: noteID
+          in: path
+          description: The ID of the note you want to delete.
           required: true
           type: string
         
@@ -303,7 +310,24 @@ definitions:
         
         
 
-        
+
+  UserAccountList:
+    type: object
+    properties:
+      accountID:
+        type: string
+        description: Account ID
+      years:
+        type: string
+        description: current 
+      month:
+        type: string
+        description: current 
+      transactions:
+        type: array
+        items: 
+          $ref: '#/definitions/Transaction'
+      
   UserAccount:
     type: object
     properties:
